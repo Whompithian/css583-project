@@ -1,0 +1,423 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ghsir: <http://students.washington.edu/bps7/2014/ghsir#> .
+
+<http://students.washington.edu/bps7/2014/ghir> a owl:Ontology ;
+    dcterms:title "Gray Hats Semantic Incident Response (GHSIR)"@en-US ;
+    dcterms:description "Gray Hats Semantic Incident Response is an RDF Schema vocabulary meant to aid in identifying the links between the different elements of a solid incident response planning strategy."@en-US ;
+    dcterms:modified "2014-08-13"^^xsd:date ;
+    dcterms:created "2014-08-06"^^xsd:date .
+
+ghsir:Asset a rdfs:Class ;
+    rdfs:label "Asset"@en-US ;
+    rdfs:comment "Something of value that needs to be protected."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf rdfs:Resource .
+
+ghsir:Service a rdfs:Class ;
+    rdfs:label "Service"@en-US ;
+    rdfs:comment "Made available to others, typically over a network."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf ghsir:Asset .
+
+ghsir:System a rdfs:Class ;
+    rdfs:label "System"@en-US ;
+    rdfs:comment "Physical host for a service or other resource."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf ghsir:Asset,  rdfs:Container .
+
+ghsir:Control a rdfs:Class ;
+    rdfs:label "Control"@en-US ;
+    rdfs:comment "Mechanism applied to protect assets and mitigate threats."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf rdfs:Resource .
+
+ghsir:AccessControlList a rdfs:Class ;
+    rdfs:label "Access Control List"@en-US ;
+    rdfs:comment "Mapping of user privileges to assets."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf ghsir:Control .
+
+ghsir:IntrusionDetectionPrevention a rdfs:Class ;
+    rdfs:label "Intrusion Detection and Prevention System"@en-US ;
+    rdfs:comment "System to monitor network activity, detect events, and prevent incidents."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf ghsir:Control .
+
+ghsir:Event a rdfs:Class ;
+    rdfs:label "Event"@en-US ;
+    rdfs:comment "Unusual activity."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf rdfs:Resource .
+
+ghsir:Precursor a rdfs:Class ;
+    rdfs:label "Precursor"@en-US ;
+    rdfs:comment "An event that may signal a more serious event to come."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf ghsir:Event .
+
+ghsir:AdverseEvent a rdfs:Class ;
+    rdfs:label "Adverse Event"@en-US ;
+    rdfs:comment "An event that has a negative impact."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf rdfs:Event .
+
+ghsir:IncidentCandidate a rdfs:Class ;
+    rdfs:label "Incident Candidate"@en-US ;
+    rdfs:comment "An adverse event that requires investigation to determine if it is a serious incident."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf ghsir:AdverseEvent .
+
+ghsir:Incident a rdfs:Class ;
+    rdfs:label "Incident"@en-US ;
+    rdfs:comment "An adverse event that requires action to resolve."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf rdfs:AdverseEvent .
+
+ghsir:InappropriateUse a rdfs:Class ;
+    rdfs:label "Inappropriate Use"@en-US ;
+    rdfs:comment "An incident in which authorized users perform unauthorized activities."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf ghsir:Incident .
+
+ghsir:UnauthorizedAccess a rdfs:Class ;
+    rdfs:label "Unauthorized Access"@en-US ;
+    rdfs:comment "An incident in which unauthorized users are able to gain access to restricted assets."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf ghsir:Incident .
+
+ghsir:Attack a rdfs:Class ;
+    rdfs:label "Attack"@en-US ;
+    rdfs:comment "An intentional attempt to cause damage."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf ghsir:Incident .
+
+ghsir:DenialOfService a rdfs:Class ;
+    rdfs:label "Denial-of-Service Attack"@en-US ;
+    rdfs:comment "An attack that prevents legitimate access to assets."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf ghsir:Attack .
+
+ghsir:DnsCachePoisoning a rdfs:Class ;
+    rdfs:label "DNS Cache Poisoning"@en-US ;
+    rdfs:comment "An attack that causes Web addresses to point to the wrong IP addresses."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf ghsir:Attack .
+
+ghsir:Disaster a rdfs:Class ;
+    rdfs:label "Disaster"@en-US ;
+    rdfs:comment "An incident that may threaten lives and permanently damage an organization."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf ghsir:Incident .
+
+ghsir:ManMadeDisaster a rdfs:Class ;
+    rdfs:label "Man-Made Disaster"@en-US ;
+    rdfs:comment "A disaster caused by human activity."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf ghsir:Disaster .
+
+ghsir:NaturalDisaster a rdfs:Class ;
+    rdfs:label "Natural Disaster"@en-US ;
+    rdfs:comment "A disaster beyond human control."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf ghsir:Disaster .
+
+ghsir:RapidOnsetDisaster a rdfs:Class ;
+    rdfs:label "Rapid-Onset Disaster"@en-US ;
+    rdfs:comment "A disaster that happens suddenly and without warning."@en-US ;
+    rdfs:comment "Cor blimey!"@en-GB ;
+    rdfs:comment "Crikey!"@en-AU ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf ghsir:Disaster .
+
+ghsir:SlowOnsetDisaster a rdfs:Class ;
+    rdfs:label "Slow-Onset Disaster"@en-US ;
+    rdfs:comment "A disaster that slowly wears down safeguards against it."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf ghsir:Disaster .
+
+ghsir:IncidentResponseTeam a rdfs:Class ;
+    rdfs:label "Computer Security Incident Response Team"@en-US ;
+    rdfs:comment "The group of people responsible for responding to and resolving incidents involving computer systems."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf rdfs:Resource .
+
+ghsir:Plan a rdfs:Class ;
+    rdfs:label "Plan"@en-US ;
+    rdfs:comment "A pre-determined course of action to respond to events."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf rdfs:Resource .
+
+ghsir:BusinessContinuityPlan a rdfs:Class ;
+    rdfs:label "Business Continuity Plan"@en-US ;
+    rdfs:comment "A plan to maintain minimal business operations during a disaster."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf ghsir:Plan .
+
+ghsir:ContingencyPlan a rdfs:Class ;
+    rdfs:label "Contingency Plan"@en-US ;
+    rdfs:comment "A plan to fall back on when other plans prove inadequate."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf ghsir:Plan .
+
+ghsir:DisasterRecoveryPlan a rdfs:Class ;
+    rdfs:label "Disaster Recovery Plan"@en-US ;
+    rdfs:comment "A plan to restore full business operations after a disaster."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf ghsir:Plan .
+
+ghsir:BusinessResumptionPlan a rdfs:Class ;
+    rdfs:label "Business Resumption Plan"@en-US ;
+    rdfs:comment "A plan that combines the Business Continuity Plan and Disaster Recovery Plan."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf ghsir:BusinessContinuityPlan, ghsir:DisasterRecoveryPlan .
+
+ghsir:IncidentResponsePlan a rdfs:Class ;
+    rdfs:label "Incident Response Plan"@en-US ;
+    rdfs:comment "A plan that outlines possible incidents and the appropriate response to each."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf ghsir:Plan .
+
+ghsir:Policy a rdfs:Class ;
+    rdfs:label "Policy"@en-US ;
+    rdfs:comment "A written statement from management that identifies organizationally accepted views on a certain topic."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf rdfs:Resource .
+
+ghsir:Standard a rdfs:Class ;
+    rdfs:label "Standard"@en-US ;
+    rdfs:comment "A written set of steps required to meet a specific policy."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf rdfs:Resource .
+
+ghsir:SecurityGoal a rdfs:Class ;
+    rdfs:label "Security Goal"@en-US ;
+    rdfs:comment "Something to achieve through controls."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf rdfs:Resource .
+
+ghsir:Availability a rdfs:Class ;
+    rdfs:label "Availability"@en-US ;
+    rdfs:comment "The goal of allowing legitimate users to access assets at any time."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf ghsir:SecurityGoal .
+
+ghsir:Confidentiality a rdfs:Class ;
+    rdfs:label "Confidentiality"@en-US ;
+    rdfs:comment "The goal of preventing unauthorized users from acquiring restricted information."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf ghsir:SecurityGoal .
+
+ghsir:Integrity a rdfs:Class ;
+    rdfs:label "Integrity"@en-US ;
+    rdfs:comment "The goal of maintaining the accuracy of information and prevent unauthorized tampering, intentional or otherwise."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf ghsir:SecurityGoal .
+
+ghsir:Vulnerability a rdfs:Class ;
+    rdfs:label "Vulnerability"@en-US ;
+    rdfs:comment "A flaw in a system that could lead to an attack."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:subClassOf rdfs:Resource .
+
+ghsir:achieves a rdf:Property ;
+    rdfs:label "achieves"@en-US ;
+    rdfs:comment "A control partially achieves a security goal."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:domain ghsir:Control ;
+    rdfs:range ghsir:SecurityGoal ;
+    owl:inverseOf ghsir:achievedBy .
+
+ghsir:achievedBy a rdf:Property ;
+    rdfs:label "is achieved by"@en-US ;
+    rdfs:comment "A security goal is partially achieved by a control."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:domain ghsir:SecurityGoal ;
+    rdfs:range ghsir:Control ;
+    owl:inverseOf ghsir:achieves .
+
+ghsir:applies a rdf:Property ;
+    rdfs:label "applies"@en-US ;
+    rdfs:comment "The CSIRT applies a control to protect an asset."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:domain ghsir:IncidentResponseTeam ;
+    rdfs:range ghsir:Control ;
+    owl:inverseOf ghsir:appliedBy .
+
+ghsir:appliedBy a rdf:Property ;
+    rdfs:label "is applied by"@en-US ;
+    rdfs:comment "A control is applied by the CSIRT to protect an asset."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:domain ghsir:Control ;
+    rdfs:range ghsir:IncidentResponseTeam ;
+    owl:inverseOf ghsir:applies .
+
+ghsir:appliedTo a rdf:Property ;
+    rdfs:label "is applied to"@en-US ;
+    rdfs:comment "A control is applied to an assest to protect it."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:domain ghsir:Control ;
+    rdfs:range ghsir:Asset ;
+    owl:inverseOf ghsir:hasApplied .
+
+ghsir:hasApplied a rdf:Property ;
+    rdfs:label "has applied"@en-US ;
+    rdfs:comment "An asset has a control applied to protect it."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:domain ghsir:Asset ;
+    rdfs:range ghsir:Control ;
+    owl:inverseOf ghsir:appliedTo .
+
+ghsir:enforces a rdf:Property ;
+    rdfs:label "enforces"@en-US ;
+    rdfs:comment "The CSIRT enforces policy pertaining to computer systems."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:domain ghsir:IncidentResponseTeam ;
+    rdfs:range ghsir:Policy ;
+    owl:inverseOf ghsir:enforcedBy .
+
+ghsir:enforcedBy a rdf:Property ;
+    rdfs:label "is enforced by"@en-US ;
+    rdfs:comment "Policy pertaining to computer systems is enforced by the CSIRT."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:domain ghsir:Policy ;
+    rdfs:range ghsir:IncidentResponseTeam ;
+    owl:inverseOf ghsir:enforces .
+
+ghsir:follows a rdf:Property ;
+    rdfs:label "follows"@en-US ;
+    rdfs:comment "The CSIRT follows a plan in response to an incident."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:domain ghsir:IncidentResponseTeam ;
+    rdfs:range ghsir:Plan ;
+    owl:inverseOf ghsir:followedBy .
+
+ghsir:followedBy a rdf:Property ;
+    rdfs:label "is followed by"@en-US ;
+    rdfs:comment "A plan is followed by the CSIRT in response to an incident."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:domain ghsir:Plan ;
+    rdfs:range ghsir:IncidentResponseTeam ;
+    owl:inverseOf ghsir:follows .
+
+ghsir:formulates a rdf:Property ;
+    rdfs:label "formulates"@en-US ;
+    rdfs:comment "The CSIRT formulates a plan to respond to an incident."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:domain ghsir:IncidentResponseTeam ;
+    rdfs:range ghsir:Plan ;
+    owl:inverseOf ghsir:formulatedBy .
+
+ghsir:formulatedBy a rdf:Property ;
+    rdfs:label "is formulated by"@en-US ;
+    rdfs:comment "A plan is formulated by the CSIRT to respond to an incident."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:domain ghsir:Plan ;
+    rdfs:range ghsir:IncidentResponseTeam ;
+    owl:inverseOf ghsir:formulates .
+
+ghsir:hosts a rdf:Property ;
+    rdfs:label "hosts"@en-US ;
+    rdfs:comment "A system hosts a service."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:domain ghsir:System ;
+    rdfs:range ghsir:Service ;
+    owl:inverseOf ghsir:hostedBy .
+
+ghsir:hostedBy a rdf:Property ;
+    rdfs:label "is hosted by"@en-US ;
+    rdfs:comment "A service is hosted by a system."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:domain ghsir:Service ;
+    rdfs:range ghsir:System ;
+    owl:inverseOf ghsir:hosts .
+
+ghsir:mitigates a rdf:Property ;
+    rdfs:label "mitigates"@en-US ;
+    rdfs:comment "A control is used to mitigate a vulnerability."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:domain ghsir:Control ;
+    rdfs:range ghsir:Vulnerability ;
+    owl:inverseOf ghsir:mitigatedBy .
+
+ghsir:mitigatedBy a rdf:Property ;
+    rdfs:label "is mitigated by"@en-US ;
+    rdfs:comment "A vulnerability is mitigated by using a control."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:domain ghsir:Vulnerability ;
+    rdfs:range ghsir:Control ;
+    owl:inverseOf ghsir:mitigates .
+
+ghsir:pertainsTo a rdf:Property ;
+    rdfs:label "pertains to"@en-US ;
+    rdfs:comment "A policy pertains to specific resources."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:domain ghsir:Policy ;
+    rdfs:range ghsir:Resource .
+
+ghsir:posesRiskTo a rdf:Property ;
+    rdfs:label "poses risk to"@en-US ;
+    rdfs:comment "A vulnerability poses a risk to an asset."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:domain ghsir:Vulnerability ;
+    rdfs:range ghsir:Asset ;
+    owl:inverseOf ghsir:riskPosedBy .
+
+ghsir:riskPosedBy a rdf:Property ;
+    rdfs:label "has a risk posed by"@en-US ;
+    rdfs:comment "An asset has a risk posed to it by a vulnerability."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:domain ghsir:Asset ;
+    rdfs:range ghsir:Vulnerability ;
+    owl:inverseOf ghsir:posesRiskTo .
+
+ghsir:practices a rdf:Property ;
+    rdfs:label "practices"@en-US ;
+    rdfs:comment "The CSIRT practices a standard to support policy."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:domain ghsir:IncidentResponseTeam ;
+    rdfs:range ghsir:Standard ;
+    owl:inverseOf ghsir:practicedBy .
+
+ghsir:practicedBy a rdf:Property ;
+    rdfs:label "is practiced by"@en-US ;
+    rdfs:comment "A standard is practiced by the CSIRT to support policy."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:domain ghsir:Standard ;
+    rdfs:range ghsir:IncidentResponseTeam ;
+    owl:inverseOf ghsir:practices .
+
+ghsir:prevents a rdf:Property ;
+    rdfs:label "prevents"@en-US ;
+    rdfs:comment "A control partially prevents an event."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:domain ghsir:Control ;
+    rdfs:range ghsir:Event ;
+    owl:inverseOf ghsir:preventedBy .
+
+ghsir:preventedBy a rdf:Property ;
+    rdfs:label "is prevented by"@en-US ;
+    rdfs:comment "An event is partially prevented by a control."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:domain ghsir:Event ;
+    rdfs:range ghsir:Control ;
+    owl:inverseOf ghsir:prevents .
+
+ghsir:threatens a rdf:Property ;
+    rdfs:label "threatens"@en-US ;
+    rdfs:comment "An event threatens an asset."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:domain ghsir:Event ;
+    rdfs:range ghsir:Asset ;
+    owl:inverseOf ghsir:threatenedBy .
+
+ghsir:threatenedBy a rdf:Property ;
+    rdfs:label "is threatened by"@en-US ;
+    rdfs:comment "An asset is threatened by an event."@en-US ;
+    rdfs:isDefinedBy <http://students.washington.edu/bps7/2014/ghsir#> ;
+    rdfs:domain ghsir:Asset ;
+    rdfs:range ghsir:Event ;
+    owl:inverseOf ghsir:threatens .
